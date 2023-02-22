@@ -1,17 +1,17 @@
-# The Firstock Connect API Python client - v3 <hr /> 
+# The Firstock Connect API Python client - v3  
 
 
 To communicate with the Firstock Connect API using Python, you can use the official Python client library provided by Firstock.
 <br /> Licensed under the MIT License.
 
-## Documentation <hr />
+## Documentation 
 * python client documentation
 
-## v3 - Changes <hr />
+## v3 - Changes 
 * Error code response structured has been changed
 * Renamed
 
-## Installing the client <hr />
+## Installing the client 
 You can install the pre release via pip
 > pip install --upgrade thefirstock
 
@@ -21,7 +21,7 @@ Its recommended to update setuptools to latest if you are facing any issue while
 
 Since some of the dependencies uses C extensions it has to compiled before installing the package.
 
-## API usage <hr />
+## API usage 
 
 ```python
 from thefirstock import thefirstock
@@ -65,7 +65,7 @@ timePriceSeries = thefirstock.firstock_TimePriceSeries(
 ```
 Refer to the Firstock Connect Documentation for the complete list of supported methods.
 
-## WebSocket usage <hr />
+## WebSocket usage 
 ```python
 from typing import Any
 from thefirstock.firstockModules import firstockWebSockets
@@ -95,10 +95,10 @@ ws.connect(uid='userId', actid='userId')
 ws.run_forever()
 ```
 
-## Run unit tests<hr />
+## Run unit tests
 >python setup.py test
 
-## Changelog<hr />
+## Changelog
 Check release notes.
 
 
