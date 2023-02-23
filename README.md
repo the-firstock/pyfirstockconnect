@@ -13,12 +13,13 @@ To communicate with the Firstock Connect API using Python, you can use the offic
 
 ## Installing the client 
 You can install the pre release via pip
-> pip install --upgrade thefirstock
-
+```bash
+ pip install --upgrade thefirstock
+```
 Its recommended to update setuptools to latest if you are facing any issue while installing
-
->pip install -U pip setuptools
-
+```bash
+pip install -U pip setuptools
+```
 Since some of the dependencies uses C extensions it has to compiled before installing the package.
 
 ## API usage 
@@ -72,7 +73,7 @@ from thefirstock.firstockModules import firstockWebSockets
 from thefirstock.pyClient.websocket import WsClient
 from thefirstock.pyClient.websocket.enums import MessageTopic
 
-"""Initilizer"""
+"""Initializer"""
 client = firstockWebSockets.webSocketLogin()
 ws = client.ws
 
@@ -96,8 +97,9 @@ ws.run_forever()
 ```
 
 ## Run unit tests
->python setup.py test
-
+```bash
+python setup.py test
+```
 ## Changelog
 Check release notes.
 
