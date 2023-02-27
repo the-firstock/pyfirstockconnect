@@ -13,9 +13,11 @@ To communicate with the Firstock Connect API using Python, you can use the offic
 
 ## Installing the client 
 You can install the pre release via pip
+
 ```bash
  pip install --upgrade thefirstock
 ```
+
 Its recommended to update setuptools to latest if you are facing any issue while installing
 ```bash
 pip install -U pip setuptools
