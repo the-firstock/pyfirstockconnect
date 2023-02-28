@@ -7,5 +7,3 @@ login = thefirstock.firstock_login(
     vendorCode='AA123_API',
     apiKey='NVDewefds2343q2334',
 )
-
-print(login)
