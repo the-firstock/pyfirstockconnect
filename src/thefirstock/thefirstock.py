@@ -149,3 +149,18 @@ try:
     from thefirstock.strategies.shortStrangleFirstock import firstock_ShortStrangle
 except Exception as error:
     print(error)
+
+try:
+    from thefirstock.marketConnect.getQuoteLTPFirstock import firstock_getQuoteLTP
+except Exception as error:
+    print(error)
+
+try:
+    from thefirstock.marketConnect.getMultiQuoteLTPFirstock import firstock_getMultiQuoteLTP
+except Exception as error:
+    print(error)
+
+try:
+    from thefirstock.marketConnect.getMultiQuoteFirstock import firstock_getMultiQuote
+except Exception as error:
+    print(error)

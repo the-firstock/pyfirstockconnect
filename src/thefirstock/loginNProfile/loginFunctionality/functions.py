@@ -27,8 +27,8 @@ class ApiRequests(FirstockAPI):
 
         finalResult = ast.literal_eval(jsonString)
 
-        if "Status" in finalResult:
-            if finalResult["Status"] == "Success":
+        if "status" in finalResult:
+            if finalResult["status"] == "Success":
                 dictionary = {
                     "uid": uid,
                     "jKey": finalResult["data"]["susertoken"]
@@ -39,5 +39,6 @@ class ApiRequests(FirstockAPI):
                 with open("config.json", "w") as outfile:
                     outfile.write(jsonObject)
                 return finalResult
-        else:
-            return finalResult
+
+            elif finalResult["status"] == "Failed":
+                return finalResult

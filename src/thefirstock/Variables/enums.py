@@ -62,3 +62,9 @@ MULTIPLACEORDER = "https://connect.thefirstock.com/api/V3/strategies/multiPlaceO
 SHORTSTRADDLE = "https://connect.thefirstock.com/api/V3/strategies/shortStraddle"
 
 SHORTSTRANGLE = "https://connect.thefirstock.com/api/V3/strategies/shortStrangle"
+
+GETMULTIQUOTES = "https://connect.thefirstock.com/api/V3/getMultiQuotes"
+
+GETMULTIQUOTESLTP = "https://connect.thefirstock.com/api/V3/getMultiQuotes/ltp"
+
+GETQUOTELTP = "https://connect.thefirstock.com/api/V3/getQuote/ltp"
