@@ -12,12 +12,20 @@ from pydantic import BaseModel, IPvAnyAddress, EmailStr, SecretStr, root_validat
 from thefirstock.pyClient.utils.decoders import build_loader, timestamp_decoder, datetime_decoder
 
 
-SOCKET_URL = r'wss://norenapi.thefirstock.com/NorenWSTP/'
+SOCKET_URL1 = r'wss://norenapi.thefirstock.com/NorenWSTP/'
+SOCKET_URL2 = r'ws://norenapi.thefirstock.com:5810/NorenWSTP/'
 
-try:
-    client = Client(socket_url=SOCKET_URL)
-except Exception as e:
-    print(e)
+
+def webSocketSelection(parameter):
+    try:
+        if parameter == 1:
+            client = Client(socket_url=SOCKET_URL1)
+            return client
+        elif parameter == 2:
+            client = Client(socket_url=SOCKET_URL2)
+            return client
+    except Exception as e:
+        print(e)
 
 
 class ResponseStatus(str, Enum):
@@ -90,10 +98,11 @@ class LoginResponseModel(BaseModel):
         })
 
 
-def webSocketLogin():
+def webSocketLogin(params=1):
     with open("config.json") as file:
         data = json.load(file)
 
+    client = webSocketSelection(params)
     client.login(data)
 
     return client
