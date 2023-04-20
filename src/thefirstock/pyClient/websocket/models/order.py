@@ -15,7 +15,7 @@ class OrderSubscribeModel(BaseModel):
   """
     t: MessageTopic = MessageTopic.ORDER_SUB
     """Always 'o' for order update task"""
-    actid: str;
+    actid: str
     """Account id based on which order updated to be sent."""
 
 
