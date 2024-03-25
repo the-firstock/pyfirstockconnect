@@ -1,10 +1,11 @@
 from thefirstock.ordersNReport.cancelOrderFunctionality.execution import *
 
 
-def firstock_cancelOrder(orderNumber):
+def firstock_cancelOrder(orderNumber, userId):
     try:
         cancelOrder = FirstockCancelOrder(
-            orderNumber=orderNumber
+            orderNumber=orderNumber,
+            userId=userId
         ).firstockCancelOrder()
 
         return cancelOrder

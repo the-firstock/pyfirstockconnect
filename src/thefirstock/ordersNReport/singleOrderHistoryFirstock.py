@@ -1,10 +1,11 @@
 from thefirstock.ordersNReport.singleOrderHistory.execution import *
 
 
-def firstock_SingleOrderHistory(orderNumber):
+def firstock_SingleOrderHistory(orderNumber, userId):
     try:
         singleOrderHistory = FirstockSingleOrderHistory(
-            orderNumber=orderNumber
+            orderNumber=orderNumber,
+            userId=userId
         ).firstockSingleOrderHistory()
 
         return singleOrderHistory

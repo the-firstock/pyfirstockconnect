@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class FirstockAPI(ABC):
     @abstractmethod
-    def firstockTradeBook(self):
+    def firstockTradeBook(self, userId):
         """
         :return:
         """

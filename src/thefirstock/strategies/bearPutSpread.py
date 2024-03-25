@@ -1,12 +1,8 @@
-import ast
-import json
-import requests
-
-from thefirstock.Variables.enums import *
+from thefirstock.Variables.common_imports import *
 
 
 def firstock_bear_put_spread(symbol: str, putBuyStrikePrice: str, putSellStrikePrice: str, expiry: str,
-                             product: str, quantity: str, remarks: str):
+                             product: str, quantity: str, remarks: str, userId:str):
     """
     :param symbol:
     :param putBuyStrikePrice:
@@ -20,27 +16,27 @@ def firstock_bear_put_spread(symbol: str, putBuyStrikePrice: str, putSellStrikeP
 
     url = BEARPUTSPREAD
 
-    with open("config.json") as file:
-        data = json.load(file)
+    with open(CONFIG_PATH) as file:
+        config_data = json.load(file)
 
-    uid = data["uid"]
-    jKey = data["jKey"]
+    if userId in config_data:
 
-    payload = {
-        "symbol": symbol,
-        "putBuyStrikePrice": putBuyStrikePrice,
-        "putSellStrikePrice": putSellStrikePrice,
-        "expiry": expiry,
-        "product": product,
-        "quantity": quantity,
-        "remarks": remarks,
-        "jKey": jKey,
-        "userId": uid
-    }
+        payload = {
+            "symbol": symbol,
+            "putBuyStrikePrice": putBuyStrikePrice,
+            "putSellStrikePrice": putSellStrikePrice,
+            "expiry": expiry,
+            "product": product,
+            "quantity": quantity,
+            "remarks": remarks,
+            "jKey": config_data[userId]['jKey'],
+            "userId": userId
+        }
 
-    result = requests.post(url, json=payload)
-    jsonString = result.content.decode("utf-8")
+        result = requests.post(url, json=payload)
+        jsonString = result.content.decode("utf-8")
 
-    finalResult = ast.literal_eval(jsonString)
+        finalResult = ast.literal_eval(jsonString)
 
-    return finalResult
+        return finalResult
+    return not_logged_in_user()

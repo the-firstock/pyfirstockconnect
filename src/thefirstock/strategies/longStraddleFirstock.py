@@ -2,7 +2,7 @@ from thefirstock.strategies.longStraddle import *
 
 
 def firstock_LongStraddle(symbol: str, strikePrice: str, expiry: str,
-                            product: str, quantity: str, remarks: str):
+                            product: str, quantity: str, remarks: str, userId:str):
     try:
         LS = firstock_long_straddle(
             symbol=symbol,
@@ -10,7 +10,8 @@ def firstock_LongStraddle(symbol: str, strikePrice: str, expiry: str,
             expiry=expiry,
             product=product,
             quantity=quantity,
-            remarks=remarks
+            remarks=remarks,
+            userId=userId
         )
 
         return LS

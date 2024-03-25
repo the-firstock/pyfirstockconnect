@@ -1,11 +1,12 @@
 from thefirstock.marketConnect.getQuotesFunctionality.execution import *
 
 
-def firstock_getQuote(exchange, token):
+def firstock_getQuote(exchange, tradingSymbol, userId):
     try:
         getQuotes = FirstockGetQuotes(
             exch=exchange,
-            token=token
+            token=tradingSymbol,
+            userId=userId
         ).firstockGetQuotes()
 
         return getQuotes

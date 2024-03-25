@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class FirstockAPI(ABC):
     @abstractmethod
-    def firstockGetOptionChain(self, tsym, exch, strprc, cnt):
+    def firstockGetOptionChain(self, tsym, exch, strprc, cnt, userId):
         """
         :return:
         """

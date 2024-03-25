@@ -2,9 +2,9 @@ from thefirstock.ordersNReport.orderMarginFunctionality.functions import *
 
 
 class FirstockGetOrderMargin:
-    def __init__(self, exch, tsym, qty, prc, prd, trantype, prctyp):
+    def __init__(self, exch, tsym, qty, prc, prd, trantype, prctyp, userId):
         self.getOrderMargin = ApiRequests()
-
+        self.userId=userId
         self.exch = exch
         self.tsym = tsym
         self.qty = qty
@@ -15,5 +15,5 @@ class FirstockGetOrderMargin:
 
     def firstockGetOrderMargin(self):
         result = self.getOrderMargin.firstockGetOrderMargin(self.exch, self.tsym, self.qty, self.prc, self.prd,
-                                                            self.trantype, self.prctyp)
+                                                            self.trantype, self.prctyp, self.userId)
         return result

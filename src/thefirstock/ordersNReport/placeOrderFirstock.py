@@ -2,7 +2,7 @@ from thefirstock.ordersNReport.placeOrderFunctionality.execution import *
 
 
 def firstock_placeOrder(exchange, tradingSymbol, quantity, price, product, transactionType,
-                        priceType, retention, triggerPrice, remarks):
+                        priceType, retention, triggerPrice, remarks, userId):
     try:
         placeOrder = FirstockPlaceOrder(
             exch=exchange,
@@ -14,7 +14,8 @@ def firstock_placeOrder(exchange, tradingSymbol, quantity, price, product, trans
             prctyp=priceType,
             ret=retention,
             trgprc=triggerPrice,
-            remarks=remarks
+            remarks=remarks,
+            userId=userId
         ).firstockPlaceOrder()
 
         return placeOrder

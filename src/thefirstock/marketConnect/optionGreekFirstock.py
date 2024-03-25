@@ -1,7 +1,7 @@
 from thefirstock.marketConnect.optionGreekFunctionality.execution import *
 
 
-def firstock_OptionGreek(expiryDate, strikePrice, spotPrice, initRate, volatility, optionType):
+def firstock_OptionGreek(expiryDate, strikePrice, spotPrice, initRate, volatility, optionType, userId):
     try:
         optionGreek = FirstockOptionGreek(
             expiryDate=expiryDate,
@@ -10,6 +10,7 @@ def firstock_OptionGreek(expiryDate, strikePrice, spotPrice, initRate, volatilit
             initRate=initRate,
             volatility=volatility,
             optionType=optionType,
+            userId=userId
         )
 
         result = optionGreek.firstockOptionGreek()

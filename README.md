@@ -1,102 +1,179 @@
-# The Firstock Connect API Python client - v3  
+# Firstock Connect API Python Client - v4
 
+The official Python library for the Firstock Connect API, providing a seamless interaction with Firstock's trading and financial data services. This library has been designed for developers to easily integrate Firstock's advanced trading capabilities into their Python applications.
 
-To communicate with the Firstock Connect API using Python, you can use the official Python client library provided by Firstock.
-<br /> Licensed under the MIT License.
+## Features
 
-## Documentation 
-* python client documentation
+- HTTP calls are converted to methods.
+- JSON responses are wrapped into Python-compatible objects.
+- The handling of WebSocket connections is automated.
 
-## v3 - Changes 
-* Error code response structured has been changed
-* Renamed
+## Installation
+This module is installed via pip:
+```python
+pip install thefirstock
+```
 
-## Installing the client 
-You can install the pre release via pip
-```pip install --upgrade thefirstock```
+## Getting started with API
+The API consists of five major section 
+* Login & Profile
+* Orders & Report
+* Market Connect
+* Strategies
+* Websocket
 
-Its recommended to update setuptools to latest if you are facing any issue while installing
+The original REST API documentation is available [here](https://wikiconnect.thefirstock.com/).
 
-```pip install -U pip setuptools```
-
-Since some of the dependencies uses C extensions it has to compiled before installing the package.
-
-## API usage 
+### Login
+For the Login process we require to generate the appkey and vendor code by logging in with the firstock credentials in the give link [Key Generation](https://connect.thefirstock.com/login).
 
 ```python
 from thefirstock import thefirstock
 
-login = thefirstock.firstock_login(userId='', password='', TOTP='', vendorCode='', apiKey='')
+login = thefirstock.firstock_login(
+    userId="{{userID}}",
+    password="{{Password}}",
+    TOTP="{{TOTP}}",
+    vendorCode="{{vendorCode}}",
+    apiKey="{{apiKey}}",
+  )
+```
 
-"""Place an order"""
+### Place Order
+
+```python
+from thefirstock import thefirstock
+
 placeOrder = thefirstock.firstock_placeOrder(
-    exchange="",
-    tradingSymbol="",
-    quantity="",
-    price="",
-    product="",
-    transactionType="",
-    priceType="",
-    retention="",
-    triggerPrice="",
-    remarks=""
-)
-
-"Fetch single order deatils"
-SOH = thefirstock.firstock_SingleOrderHistory(
-    orderNumber=placeOrder["data"]["orderNumber"],
-)
-
-"""Order book"""
-orderBook = thefirstock.firstock_orderBook()
-
-"""Cancel order"""
-cancelOrder = thefirstock.firstock_cancelOrder(orderNumber=placeOrder["data"]["orderNumber"])
-
-
-"""Historical data"""
-timePriceSeries = thefirstock.firstock_TimePriceSeries(
+    userId="{{userId}}",
     exchange="NSE",
-    token="22",
-    startTime="16/08/2022 09:45:32",
-    endTime="15/02/2023 13:45:32",
-    interval="5"
+    tradingSymbol="ITC-EQ",
+    quantity="1",
+    price="300",
+    product="I",
+    transactionType="B",
+    priceType="LMT",
+    retention="DAY",
+    triggerPrice="0",
+    remarks="Python Package Order"
 )
 ```
+
+### Time Price Series
+
+```python
+from thefirstock import thefirstock
+
+timePriceSeries = thefirstock.firstock_TimePriceSeries(
+    userId="{{userId}}",
+    exchange="NSE",
+    tradingSymbol="Nifty 50",
+    startTime="13/02/2023 09:45:45",
+    endTime="13/12/2023 13:56:34",
+    interval="30"
+)
+```
+
 Refer to the Firstock Connect Documentation for the complete list of supported methods.
 
-## WebSocket usage 
+## WebSocket usage
+In Version 4 there is a major feature where the websocket now can be run in background as a thread. 
+In the below first example you can see the websocket without running in background. 
+
 ```python
-from typing import Any
-from thefirstock.firstockModules import firstockWebSockets
-from thefirstock.pyClient.websocket import WsClient
-from thefirstock.pyClient.websocket.enums import MessageTopic
-
-"""Initilizer"""
-client = firstockWebSockets.webSocketLogin()
-ws = client.ws
+from thefirstock import thefirstock
 
 
-@ws.on_connect
-def connected(client, message):
-    """Establishment of connection for required symbol"""
-    if message.get('s') == 'OK':
-        client.subscribe_feed('NSE', '26000') # Subscribe to NIFTY
-        client.subscribe_feed('NSE', '26009') # Subscribe to BANKNIFTY
+handler = thefirstock.WebSocketHandler("{userId}")
+listOfTradingSymbol = ["Nifty Bank", "Nifty 50"]
 
 
-@ws.on_message(MessageTopic.SUBSCRIBE_FEED)
-def msg_handler(client: WsClient, message: Any):
-    """Prints the message successfully"""
-    print(message)
+def subscribe_feed_data(data):
+    print(data)
 
 
-ws.connect(uid='userId', actid='userId')
-ws.run_forever()
+# Modify the websocket_connection function to accept the handler as an argument
+thread = thefirstock.websocket_connection(
+    handler,
+    listOfTradingSymbol,
+    socket_connection=1,
+    activate_sub_feed=True,
+    callback_sub_feed=subscribe_feed_data
+)
 ```
 
-## Run unit tests
-```python setup.py test```
+To subscribe and unsubscribe to symbols while the websocket is initiated
+```python
+from thefirstock import thefirstock
+
+
+handler = thefirstock.WebSocketHandler("{userId}")
+listOfTradingSymbol = ["Nifty Bank", "Nifty 50"]
+
+
+def subscribe_feed_data(data):
+    thefirstock.subscribe_symbol(handler, "ACC-EQ")
+    thefirstock.unsubscribe_symbol(handler, "Nifty 50")
+    print(data)
+
+
+# Modify the websocket_connection function to accept the handler as an argument
+thread = thefirstock.websocket_connection(
+    handler,
+    listOfTradingSymbol,
+    socket_connection=1,
+    activate_sub_feed=True,
+    callback_sub_feed=subscribe_feed_data
+)
+```
+
+To run websocket in background
+```python
+from thefirstock import thefirstock
+
+
+handler = thefirstock.WebSocketHandler("PV0013")
+listOfTradingSymbol = ["Nifty Bank", "Nifty 50"]
+
+
+def subscribe_feed_data(data):
+    print(data)
+
+
+# Modify the websocket_connection function to accept the handler as an argument
+thread = thefirstock.websocket_connection(
+    handler,
+    listOfTradingSymbol,
+    socket_connection=1,
+    activate_sub_feed=True,
+    callback_sub_feed=subscribe_feed_data,
+    run_in_background=True
+)
+
+if thread:
+    thread.join()
+
+```
+
+Refer to the Firstock Connect Documentation for the complete list of supported methods.
 
 ## Changelog
-Check release notes.
+* The Python package has been updated to automatically convert passwords into SHA256 hashes prior to submission to the login URL. 
+
+
+* The package now includes a multi-login feature, enabling simultaneous login for multiple users, with each user's session being individually stored. 
+
+
+* For all APIs, it is now required to pass the userId. The corresponding jKey session linked to the userId will be utilized for executing the API.
+
+
+* The following methods have been updated to require trading symbols instead of tokens:
+  * Get Multi Quotes LTP 
+  * Get Multi Quotes 
+  * Day Interval Time Price Series 
+  * Time Price Series 
+  * Security Info 
+  * Get Quotes 
+
+
+* The method for accessing the websocket has been entirely revamped. Detailed information will be available in an upcoming blog post. Additionally, sample code illustrating the new method can be found in the examples section.

@@ -1,37 +1,31 @@
-import ast
-import json
-import requests
-
-from thefirstock.Variables.enums import *
+from thefirstock.Variables.common_imports import *
 from thefirstock.marketConnect.getMultiQuoteFunctionality.base import *
 
 
 class ApiRequests(FirstockAPI):
-    def firstockGetMultiQuote(self, dataToken):
+    def firstockGetMultiQuote(self, dataToken, userId):
         """
         :return:
         """
         try:
             url = GETMULTIQUOTES
 
-            with open("config.json") as file:
-                data = json.load(file)
+            with open(CONFIG_PATH) as file:
+                config_data = json.load(file)
 
-            uid = data["uid"]
-            jKey = data["jKey"]
+            if userId in config_data:
+                payload = {
+                    "userId": userId,
+                    "data": dataToken,
+                    "jKey": config_data[userId]['jKey']
+                }
 
-            payload = {
-                "userId": uid,
-                "data": dataToken,
-                "jKey": jKey
-            }
+                result = requests.post(url, json=payload)
+                jsonString = result.content.decode("utf-8")
 
-            result = requests.post(url, json=payload)
-            jsonString = result.content.decode("utf-8")
+                finalResult = ast.literal_eval(jsonString)
 
-            finalResult = ast.literal_eval(jsonString)
-
-            return finalResult
-
+                return finalResult
+            return not_logged_in_user()
         except Exception as e:
             print(e)

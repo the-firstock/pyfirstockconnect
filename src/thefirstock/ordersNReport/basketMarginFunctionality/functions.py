@@ -1,36 +1,31 @@
-import ast
-import json
-import requests
-
-from thefirstock.Variables.enums import *
+from thefirstock.Variables.common_imports import *
 from thefirstock.ordersNReport.basketMarginFunctionality.base import *
 
 
 class ApiRequests(FirstockAPI):
-    def firstockBasketMargin(self, basket):
+    def firstockBasketMargin(self, basket, userId):
         try:
             """
             :return: The json response
             """
             url = BASKETMARGIN
 
-            with open("config.json") as file:
-                data = json.load(file)
+            with open(CONFIG_PATH) as file:
+                config_data = json.load(file)
 
-            uid = data["uid"]
-            jKey = data["jKey"]
+            if userId in config_data:
+                payload = {
+                    "userId": userId,
+                    "basket": basket,
+                    "jKey": config_data[userId]['jKey']
+                }
 
-            payload = {
-                "userId": uid,
-                "basket": basket,
-                "jKey": jKey
-            }
+                result = requests.post(url, json=payload)
+                jsonString = result.content.decode("utf-8")
 
-            result = requests.post(url, json=payload)
-            jsonString = result.content.decode("utf-8")
+                finalResult = ast.literal_eval(jsonString)
 
-            finalResult = ast.literal_eval(jsonString)
-
-            return finalResult
+                return finalResult
+            return not_logged_in_user()
         except Exception as e:
             print(e)

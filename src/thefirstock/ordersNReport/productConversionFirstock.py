@@ -1,7 +1,7 @@
 from thefirstock.ordersNReport.productConversionFunctionality.execution import *
 
 
-def firstock_ConvertProduct(exchange, tradingSymbol, quantity, product, previousProduct, transactionType, positionType):
+def firstock_ConvertProduct(exchange, tradingSymbol, quantity, product, previousProduct, transactionType, positionType, userId):
     try:
 
         convertProduct = FirstockConvertProduct(
@@ -11,7 +11,8 @@ def firstock_ConvertProduct(exchange, tradingSymbol, quantity, product, previous
             prd=product,
             prevprd=previousProduct,
             trantype=transactionType,
-            postype=positionType
+            postype=positionType,
+            userId=userId
         ).firstockConvertProduct()
 
         return convertProduct

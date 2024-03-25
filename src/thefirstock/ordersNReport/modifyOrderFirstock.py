@@ -1,7 +1,7 @@
 from thefirstock.ordersNReport.modifyOrderFunctionality.execution import *
 
 
-def firstock_ModifyOrder(quantity, orderNumber, triggerPrice, price, exchange, tradingSymbol, priceType):
+def firstock_ModifyOrder(quantity, orderNumber, triggerPrice, price, exchange, tradingSymbol, priceType, userId):
     try:
 
         modifyOrder = FirstockModifyOrder(
@@ -11,7 +11,8 @@ def firstock_ModifyOrder(quantity, orderNumber, triggerPrice, price, exchange, t
             prc=price,
             exchange=exchange,
             tradingSymbol=tradingSymbol,
-            priceType=priceType
+            priceType=priceType,
+            userId=userId
         ).firstockModifyOrder()
 
         return modifyOrder

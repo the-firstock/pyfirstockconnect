@@ -1,9 +1,9 @@
 from thefirstock.ordersNReport.orderBookFunctionality.execution import *
 
 
-def firstock_orderBook():
+def firstock_orderBook(userId):
     try:
-        orderBook = FirstockOrderBook().firstockOrderBook()
+        orderBook = FirstockOrderBook(userId).firstockOrderBook()
 
         return orderBook
 

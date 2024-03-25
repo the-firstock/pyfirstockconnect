@@ -2,7 +2,7 @@ from thefirstock.strategies.bearPutSpread import *
 
 
 def firstock_BearPutSpread(symbol: str, putBuyStrikePrice: str, putSellStrikePrice: str, expiry: str,
-                           product: str, quantity: str, remarks: str):
+                           product: str, quantity: str, remarks: str, userId:str):
     try:
         BPS = firstock_bear_put_spread(
             symbol=symbol,
@@ -11,7 +11,8 @@ def firstock_BearPutSpread(symbol: str, putBuyStrikePrice: str, putSellStrikePri
             expiry=expiry,
             product=product,
             quantity=quantity,
-            remarks=remarks
+            remarks=remarks,
+            userId=userId
         )
 
         return BPS
