@@ -1,7 +1,7 @@
 from thefirstock.ordersNReport.orderMarginFunctionality.execution import *
 
 
-def firstock_orderMargin(exchange, tradingSymbol, quantity, price, product, transactionType, priceType):
+def firstock_orderMargin(exchange, tradingSymbol, quantity, price, product, transactionType, priceType, userId):
     try:
         orderMargin = FirstockGetOrderMargin(
             exch=exchange,
@@ -11,6 +11,7 @@ def firstock_orderMargin(exchange, tradingSymbol, quantity, price, product, tran
             prd=product,
             trantype=transactionType,
             prctyp=priceType,
+            userId=userId
         ).firstockGetOrderMargin()
 
         return orderMargin

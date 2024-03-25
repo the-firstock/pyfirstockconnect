@@ -1,5 +1,3 @@
 requests
-ws4py
-pydantic
-pydantic[email]
-python-dateutil
+websockets
+asyncio

@@ -1,10 +1,11 @@
 from thefirstock.marketConnect.getIndexListFunctionality.execution import *
 
 
-def firstock_getIndexList(exchange):
+def firstock_getIndexList(exchange, userId):
     try:
         getIndexList = FirstockGetIndexList(
-            exch=exchange
+            exch=exchange,
+            userId = userId
         )
 
         result = getIndexList.firstockGetIndexList()

@@ -2,9 +2,9 @@ from thefirstock.marketConnect.optionGreekFunctionality.functions import *
 
 
 class FirstockOptionGreek:
-    def __init__(self, expiryDate, strikePrice, spotPrice, initRate, volatility, optionType):
+    def __init__(self, expiryDate, strikePrice, spotPrice, initRate, volatility, optionType, userId):
         self.optionGreek = ApiRequests()
-
+        self.userId = userId
         self.expiryDate = expiryDate
         self.strikePrice = strikePrice
         self.spotPrice = spotPrice
@@ -15,5 +15,5 @@ class FirstockOptionGreek:
     def firstockOptionGreek(self):
         result = self.optionGreek.firstockOptionGreek(self.expiryDate, self.strikePrice,
                                                       self.spotPrice, self.initRate, self.volatility,
-                                                      self.optionType)
+                                                      self.optionType, self.userId)
         return result

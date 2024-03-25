@@ -1,10 +1,15 @@
-import ast
-import json
-import requests
+import hashlib
 
-from thefirstock.Variables.enums import *
-
+from thefirstock.Variables.common_imports import *
 from thefirstock.loginNProfile.loginFunctionality.base import *
+
+
+def encodePwd(pwd):
+    """
+    :param pwd:
+    :return:
+    """
+    return hashlib.sha256((pwd.encode()))
 
 
 class ApiRequests(FirstockAPI):
@@ -13,10 +18,11 @@ class ApiRequests(FirstockAPI):
         :return: The json response
         """
         url = LOGIN
+        encryptedPassword = encodePwd(pwd)
 
         payload = {
             "userId": uid,
-            "password": pwd,
+            "password": encryptedPassword.hexdigest(),
             "TOTP": factor2,
             "vendorCode": vc,
             "apiKey": appkey
@@ -28,17 +34,25 @@ class ApiRequests(FirstockAPI):
         finalResult = ast.literal_eval(jsonString)
 
         if "status" in finalResult:
-            if finalResult["status"] == "Success":
-                dictionary = {
-                    "uid": uid,
-                    "jKey": finalResult["data"]["susertoken"]
-                }
+            if finalResult["status"] == "success":
+                if not os.path.exists(CONFIG_PATH):
+                    with open(CONFIG_PATH, "w") as config_file:
+                        # You can write initial content to the file if needed
+                        config_file.write("{}")
 
-                jsonObject = json.dumps(dictionary, indent=4)
+                with open(CONFIG_PATH, "r") as infile:
+                    try:
+                        in_json = json.load(infile)
+                    except Exception:
+                        in_json = {}
 
-                with open("config.json", "w") as outfile:
+                    in_json[f"{uid}"] = {"jKey": finalResult["data"]["susertoken"]}
+
+                jsonObject = json.dumps(in_json, indent=4)
+
+                with open(CONFIG_PATH, "w") as outfile:
                     outfile.write(jsonObject)
                 return finalResult
 
-            elif finalResult["status"] == "Failed":
+            elif finalResult["status"] == "failed":
                 return finalResult

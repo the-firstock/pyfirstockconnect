@@ -1,15 +1,16 @@
 from thefirstock.marketConnect.timePriceSeriesFunctionality.execution import *
 
 
-def firstock_TimePriceSeries(exchange, token, startTime, endTime, interval):
+def firstock_TimePriceSeries(exchange, tradingSymbol, startTime, endTime, interval, userId):
     try:
 
         timePrice = FirstockTimePriceSeries(
             exch=exchange,
-            token=token,
+            token=tradingSymbol,
             st=startTime,
             et=endTime,
-            intrv=interval
+            intrv=interval,
+            userId=userId
         ).firstockTimePriceSeries()
 
         return timePrice

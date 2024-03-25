@@ -1,37 +1,32 @@
-import ast
-import json
-import requests
-
-from thefirstock.Variables.enums import *
+from thefirstock.Variables.common_imports import *
 from thefirstock.marketConnect.timePriceSeriesFunctionality.base import *
 
 
 class ApiRequests(FirstockAPI):
-    def firstockTimePriceSeries(self, exch, token, st, et, intrv):
+    def firstockTimePriceSeries(self, exch, token, st, et, intrv, userId):
         """
         :return:
         """
         url = TIMEPRICESERIES
 
-        with open("config.json") as file:
-            data = json.load(file)
+        with open(CONFIG_PATH) as file:
+            config_data = json.load(file)
 
-        uid = data["uid"]
-        jKey = data["jKey"]
+        if userId in config_data:
+            payload = {
+                "userId": userId,
+                "exchange": exch,
+                "tradingSymbol": token,
+                "endTime": et,
+                "startTime": st,
+                "jKey": config_data[userId]['jKey'],
+                "interval": intrv
+            }
 
-        payload = {
-            "userId": uid,
-            "exchange": exch,
-            "token": token,
-            "endTime": et,
-            "startTime": st,
-            "jKey": jKey,
-            "interval": intrv
-        }
+            result = requests.post(url, json=payload)
+            jsonString = result.content.decode("utf-8")
 
-        result = requests.post(url, json=payload)
-        jsonString = result.content.decode("utf-8")
+            finalResult = ast.literal_eval(jsonString)
 
-        finalResult = ast.literal_eval(jsonString)
-
-        return finalResult
+            return finalResult
+        return not_logged_in_user()

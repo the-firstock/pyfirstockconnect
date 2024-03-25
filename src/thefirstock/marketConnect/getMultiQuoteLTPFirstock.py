@@ -1,10 +1,11 @@
 from thefirstock.marketConnect.getMultiQuoteLTPFuntionality.execution import *
 
 
-def firstock_getMultiQuoteLTP(dataToken):
+def firstock_getMultiQuoteLTP(dataToken, userId):
     try:
         getQuotes = firstockGetMultiQuoteLTP(
-            dataToken=dataToken
+            dataToken=dataToken,
+            userId=userId
         ).firstockGetMultiQuoteLTP()
 
         return getQuotes

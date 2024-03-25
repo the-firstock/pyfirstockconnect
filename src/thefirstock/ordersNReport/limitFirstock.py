@@ -1,10 +1,10 @@
 from thefirstock.ordersNReport.limitFunctionality.execution import *
 
 
-def firstock_Limits():
+def firstock_Limits(userId):
     try:
 
-        limits = FirstockLimits().firstockLimits()
+        limits = FirstockLimits(userId).firstockLimits()
 
         return limits
 

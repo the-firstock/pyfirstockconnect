@@ -2,7 +2,7 @@ from thefirstock.strategies.shortStraddle import *
 
 
 def firstock_ShortStraddle(symbol: str, strikePrice: str, expiry: str, product: str, quantity: str, remarks: str,
-                           hedge: bool, hedgeValue: int):
+                           hedge: bool, hedgeValue: int, userId:str):
     try:
         SS = firstock_short_straddle(
             symbol=symbol,
@@ -12,7 +12,8 @@ def firstock_ShortStraddle(symbol: str, strikePrice: str, expiry: str, product: 
             expiry=expiry,
             product=product,
             quantity=quantity,
-            remarks=remarks
+            remarks=remarks,
+            userId=userId
         )
 
         return SS

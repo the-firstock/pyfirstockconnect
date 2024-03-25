@@ -1,12 +1,13 @@
 from thefirstock.marketConnect.getSecurityInfoFunctionality.execution import *
 
 
-def firstock_getSecurityInfo(token, exchange):
+def firstock_getSecurityInfo(tradingSymbol, exchange, userId):
     try:
 
         securityInfo = FirstockGetSecurityInfo(
             exch=exchange,
-            token=token
+            token=tradingSymbol,
+            userId=userId
         ).firstockGetSecurityInfo()
 
         return securityInfo

@@ -1,33 +1,27 @@
-import ast
-import json
-import requests
-
+from thefirstock.Variables.common_imports import *
 from thefirstock.loginNProfile.userDetailsFunctionality.base import *
-
-from thefirstock.Variables.enums import *
 
 
 class ApiRequests(FirstockAPI):
-    def firstockUserDetails(self):
+    def firstockUserDetails(self, uid):
         """
         :return: The json response
         """
         url = USERDETAILS
 
-        with open("config.json") as file:
-            data = json.load(file)
+        with open(CONFIG_PATH) as file:
+            config_data = json.load(file)
 
-        uid = data["uid"]
-        jKey = data["jKey"]
+        if uid in config_data:
+            payload = {
+                "userId": uid,
+                "jKey": config_data[uid]['jKey']
+            }
 
-        payload = {
-            "userId": uid,
-            "jKey": jKey
-        }
+            result = requests.post(url, json=payload)
+            jsonString = result.content.decode("utf-8")
 
-        result = requests.post(url, json=payload)
-        jsonString = result.content.decode("utf-8")
+            finalResult = ast.literal_eval(jsonString)
 
-        finalResult = ast.literal_eval(jsonString)
-
-        return finalResult
+            return finalResult
+        return not_logged_in_user()

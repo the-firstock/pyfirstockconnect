@@ -1,10 +1,10 @@
 from thefirstock.ordersNReport.positionBookFunctionality.execution import *
 
 
-def firstock_PositionBook():
+def firstock_PositionBook(userId):
     try:
 
-        positionBook = FirstockPositionBook().firstockPositionBook()
+        positionBook = FirstockPositionBook(userId).firstockPositionBook()
 
         return positionBook
 

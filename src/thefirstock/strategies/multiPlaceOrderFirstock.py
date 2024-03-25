@@ -1,10 +1,11 @@
 from thefirstock.strategies.multiPlaceOrder import *
 
 
-def firstock_MultiPlaceOrder(dataList: list):
+def firstock_MultiPlaceOrder(dataList: list, userId:str):
     try:
         MPL = firstock_multi_placeOrder(
-            dataList=dataList
+            dataList=dataList,
+            userId=userId
         )
 
         return MPL

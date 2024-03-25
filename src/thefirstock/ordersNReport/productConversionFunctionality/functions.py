@@ -1,45 +1,39 @@
-import ast
-import json
-import requests
-
-from thefirstock.Variables.enums import *
-
+from thefirstock.Variables.common_imports import *
 from thefirstock.ordersNReport.productConversionFunctionality.base import *
 
 
 class ApiRequests(FirstockAPI):
-    def firstockConvertProduct(self, exch, tsym, qty, prd, prevprd, trantype, postype):
+    def firstockConvertProduct(self, exch, tsym, qty, prd, prevprd, trantype, postype, userId):
         """
         :return:
         """
         try:
             url = PRODUCTCONVERSION
 
-            with open("config.json") as file:
-                data = json.load(file)
+            with open(CONFIG_PATH) as file:
+                config_data = json.load(file)
 
-            uid = data["uid"]
-            jKey = data["jKey"]
+            if userId in config_data:
+                payload = {
+                    "userId": userId,
+                    "exchange": exch,
+                    "tradingSymbol": tsym,
+                    "quantity": qty,
+                    "actid": userId,
+                    "product": prd,
+                    "previousProduct": prevprd,
+                    "transactionType": trantype,
+                    "positionType": postype,
+                    "jKey": config_data[userId]['jKey']
+                }
 
-            payload = {
-                "userId": uid,
-                "exchange": exch,
-                "tradingSymbol": tsym,
-                "quantity": qty,
-                "actid": uid,
-                "product": prd,
-                "previousProduct": prevprd,
-                "transactionType": trantype,
-                "positionType": postype,
-                "jKey": jKey
-            }
+                result = requests.post(url, json=payload)
+                jsonString = result.content.decode("utf-8")
 
-            result = requests.post(url, json=payload)
-            jsonString = result.content.decode("utf-8")
+                finalResult = ast.literal_eval(jsonString)
 
-            finalResult = ast.literal_eval(jsonString)
-
-            return finalResult
+                return finalResult
+            return not_logged_in_user()
 
         except Exception as e:
             print(e)

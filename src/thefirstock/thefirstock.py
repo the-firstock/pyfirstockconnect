@@ -18,8 +18,24 @@ try:
 except Exception as error:
     print(error)
 
+
+try:
+    from thefirstock.marketConnect.getMultiQuoteFirstock import firstock_getMultiQuote
+except Exception as error:
+    print(error)
+
+try:
+    from thefirstock.marketConnect.getMultiQuoteLTPFirstock import firstock_getMultiQuoteLTP
+except Exception as error:
+    print(error)
+
 try:
     from thefirstock.marketConnect.getOptionChainFirstock import firstock_OptionChain
+except Exception as error:
+    print(error)
+
+try:
+    from thefirstock.marketConnect.getQuoteLTPFirstock import firstock_getQuoteLTP
 except Exception as error:
     print(error)
 
@@ -28,8 +44,14 @@ try:
 except Exception as error:
     print(error)
 
+
 try:
     from thefirstock.marketConnect.getSecurityInfoFirstock import firstock_getSecurityInfo
+except Exception as error:
+    print(error)
+
+try:
+    from thefirstock.marketConnect.optionGreekFirstock import firstock_OptionGreek
 except Exception as error:
     print(error)
 
@@ -37,6 +59,7 @@ try:
     from thefirstock.marketConnect.searchScripsFirstock import firstock_SearchScrips
 except Exception as error:
     print(error)
+
 
 try:
     from thefirstock.marketConnect.spanCalculatorFirstock import firstock_SpanCalculator
@@ -49,7 +72,27 @@ except Exception as error:
     print(error)
 
 try:
-    from thefirstock.marketConnect.optionGreekFirstock import firstock_OptionGreek
+    from thefirstock.ordersNReport.basketMarginFirstock import firstock_BasketMargin
+except Exception as error:
+    print(error)
+
+try:
+    from thefirstock.ordersNReport.placeOrderFirstock import firstock_placeOrder
+except Exception as error:
+    print(error)
+
+try:
+    from thefirstock.ordersNReport.orderBookFirstock import firstock_orderBook
+except Exception as error:
+    print(error)
+
+try:
+    from thefirstock.ordersNReport.modifyOrderFirstock import firstock_ModifyOrder
+except Exception as error:
+    print(error)
+
+try:
+    from thefirstock.ordersNReport.orderMarginFirstock import firstock_orderMargin
 except Exception as error:
     print(error)
 
@@ -67,27 +110,6 @@ try:
     from thefirstock.ordersNReport.limitFirstock import firstock_Limits
 except Exception as error:
     print(error)
-
-try:
-    from thefirstock.ordersNReport.modifyOrderFirstock import firstock_ModifyOrder
-except Exception as error:
-    print(error)
-
-try:
-    from thefirstock.ordersNReport.orderBookFirstock import firstock_orderBook
-except Exception as error:
-    print(error)
-
-try:
-    from thefirstock.ordersNReport.orderMarginFirstock import firstock_orderMargin
-except Exception as error:
-    print(error)
-
-try:
-    from thefirstock.ordersNReport.placeOrderFirstock import firstock_placeOrder
-except Exception as error:
-    print(error)
-
 
 try:
     from thefirstock.ordersNReport.positionBookFirstock import firstock_PositionBook
@@ -110,17 +132,6 @@ except Exception as error:
     print(error)
 
 try:
-    from thefirstock.ordersNReport.basketMarginFirstock import firstock_BasketMargin
-except Exception as error:
-    print(error)
-
-try:
-    from thefirstock.strategies.multiPlaceOrderFirstock import firstock_MultiPlaceOrder
-except Exception as error:
-    print(error)
-
-
-try:
     from thefirstock.strategies.bearPutSpreadFirstock import firstock_BearPutSpread
 except Exception as error:
     print(error)
@@ -141,26 +152,53 @@ except Exception as error:
     print(error)
 
 try:
+    from thefirstock.strategies.multiPlaceOrderFirstock import firstock_MultiPlaceOrder
+except Exception as error:
+    print(error)
+
+try:
     from thefirstock.strategies.shortStraddleFirstock import firstock_ShortStraddle
 except Exception as error:
     print(error)
+
 
 try:
     from thefirstock.strategies.shortStrangleFirstock import firstock_ShortStrangle
 except Exception as error:
     print(error)
 
+
 try:
-    from thefirstock.marketConnect.getQuoteLTPFirstock import firstock_getQuoteLTP
+    from thefirstock.exchange_socket import websocket_connection
 except Exception as error:
     print(error)
 
+
 try:
-    from thefirstock.marketConnect.getMultiQuoteLTPFirstock import firstock_getMultiQuoteLTP
+    from thefirstock.exchange_socket import subscribe_symbol
 except Exception as error:
     print(error)
 
+
 try:
-    from thefirstock.marketConnect.getMultiQuoteFirstock import firstock_getMultiQuote
+    from thefirstock.exchange_socket import unsubscribe_symbol
+except Exception as error:
+    print(error)
+
+
+try:
+    from thefirstock.exchange_socket import subscribe_symbol_depth
+except Exception as error:
+    print(error)
+
+
+try:
+    from thefirstock.exchange_socket import unsubscribe_symbol_depth
+except Exception as error:
+    print(error)
+
+
+try:
+    from thefirstock.exchange_socket import WebSocketHandler
 except Exception as error:
     print(error)

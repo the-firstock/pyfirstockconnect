@@ -1,38 +1,33 @@
-import ast
-import json
-import requests
-
-from thefirstock.Variables.enums import *
+from thefirstock.Variables.common_imports import *
 
 
-def firstock_short_strangle(symbol: str, callStrikePrice: str, putStrikePrice: str, expiry: str, product: str, quantity: str, remarks: str,
-                            hedge: bool, hedgeValue: int):
-
+def firstock_short_strangle(symbol: str, callStrikePrice: str, putStrikePrice: str, expiry: str, product: str,
+                            quantity: str, remarks: str,
+                            hedge: bool, hedgeValue: int, userId: str):
     url = SHORTSTRANGLE
 
-    with open("config.json") as file:
-        data = json.load(file)
+    with open(CONFIG_PATH) as file:
+        config_data = json.load(file)
 
-    uid = data["uid"]
-    jKey = data["jKey"]
+    if userId in config_data:
+        payload = {
+            "symbol": symbol,
+            "callStrikePrice": callStrikePrice,
+            "putStrikePrice": putStrikePrice,
+            "expiry": expiry,
+            "product": product,
+            "quantity": quantity,
+            "remarks": remarks,
+            "jKey": config_data[userId]['jKey'],
+            "userId": userId,
+            "hedge": hedge,
+            "hedgeValue": hedgeValue,
+        }
 
-    payload = {
-        "symbol": symbol,
-        "callStrikePrice": callStrikePrice,
-        "putStrikePrice": putStrikePrice,
-        "expiry": expiry,
-        "product": product,
-        "quantity": quantity,
-        "remarks": remarks,
-        "jKey": jKey,
-        "userId": uid,
-        "hedge": hedge,
-        "hedgeValue": hedgeValue,
-    }
+        result = requests.post(url, json=payload)
+        jsonString = result.content.decode("utf-8")
 
-    result = requests.post(url, json=payload)
-    jsonString = result.content.decode("utf-8")
+        finalResult = ast.literal_eval(jsonString)
 
-    finalResult = ast.literal_eval(jsonString)
-
-    return finalResult
+        return finalResult
+    return not_logged_in_user()

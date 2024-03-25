@@ -1,11 +1,10 @@
 from thefirstock.ordersNReport.holdingsFunctionality.execution import *
 
 
-def firstock_Holding():
+def firstock_Holding(userId):
     try:
 
-        holding = FirstockHoldings().firstockHoldings()
-
+        holding = FirstockHoldings(userId).firstockHoldings()
         return holding
 
     except Exception as e:
