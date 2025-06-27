@@ -8,7 +8,6 @@ import asyncio
 import logging
 import requests
 import threading
-import websockets
 import concurrent.futures
 
 from queue import Queue

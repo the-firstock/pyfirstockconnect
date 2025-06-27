@@ -168,37 +168,4 @@ except Exception as error:
     print(error)
 
 
-try:
-    from thefirstock.exchange_socket import websocket_connection
-except Exception as error:
-    print(error)
 
-
-try:
-    from thefirstock.exchange_socket import subscribe_symbol
-except Exception as error:
-    print(error)
-
-
-try:
-    from thefirstock.exchange_socket import unsubscribe_symbol
-except Exception as error:
-    print(error)
-
-
-try:
-    from thefirstock.exchange_socket import subscribe_symbol_depth
-except Exception as error:
-    print(error)
-
-
-try:
-    from thefirstock.exchange_socket import unsubscribe_symbol_depth
-except Exception as error:
-    print(error)
-
-
-try:
-    from thefirstock.exchange_socket import WebSocketHandler
-except Exception as error:
-    print(error)

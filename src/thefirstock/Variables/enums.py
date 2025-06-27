@@ -2,7 +2,7 @@
 URLS for FIRSTOCK api
 """
 
-LOGIN = 'https://connect.thefirstock.com/api/V4/login'
+LOGIN = 'https://api.firstock.in/V1/login'
 
 USERDETAILS = "https://connect.thefirstock.com/api/V4/userDetails"
 
