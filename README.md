@@ -1,9 +1,9 @@
 🚨 **DEPRECATED** 🚨
 
-This repository is no longer maintained. Please see Developer Python(https://github.com/the-firstock/firstock-developer-sdk-python) for the latest updates and support.
+This repository is no longer maintained. Please see [Developer Python](https://github.com/the-firstock/firstock-developer-sdk-python) for the latest updates and support.
 
 - Issues and pull requests are now closed.
-- Please migrate to Developer Python(https://github.com/the-firstock/firstock-developer-sdk-python).
+- Please migrate to [Developer Python](https://github.com/the-firstock/firstock-developer-sdk-python).
 
 # Firstock Connect API Python Client - v4
 
